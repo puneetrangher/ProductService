@@ -60,7 +60,7 @@ public class FakeStoreProductService implements ProductService{
         // the below line is added by IntelliJ/Spring to make sure
         // return is not getting called on a NULL object as
         // productDto can be NULL
-//        assert productDto != null;
+        assert productDto != null;
         return convertProductDtoToProduct(productDto);
     }
 
@@ -80,8 +80,12 @@ public class FakeStoreProductService implements ProductService{
     @Override
     public Product addProduct(Product product) {
         FakeStoreProductDto dto = convertProductToProductDto(product);
-        Product responseProduct = restTemplate.postForObject("https://fakestoreapi.com/products", dto, Product.class);
-        return responseProduct;
+        FakeStoreProductDto responseProduct = restTemplate.postForObject(
+                "https://fakestoreapi.com/products",
+                dto,
+                FakeStoreProductDto.class);
+        assert responseProduct != null;
+        return convertProductDtoToProduct(responseProduct);
     }
 
 }
