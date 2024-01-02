@@ -60,7 +60,28 @@ public class FakeStoreProductService implements ProductService{
         // the below line is added by IntelliJ/Spring to make sure
         // return is not getting called on a NULL object as
         // productDto can be NULL
-        assert productDto != null;
+//        assert productDto != null;
         return convertProductDtoToProduct(productDto);
     }
+
+    // method to convert a given Product to product dto
+    public FakeStoreProductDto convertProductToProductDto(Product product) {
+        FakeStoreProductDto dto = new FakeStoreProductDto();
+        // ... Map properties from Product to FakeStoreProductDto ...
+        dto.setId(product.getId());
+        dto.setTitle(product.getTitle());
+        dto.setPrice(product.getPrice());
+        dto.setCategory(product.getCategory().getName());
+        dto.setDescription(product.getDescription());
+        dto.setImage(product.getImageUrl());
+        return dto;
+    }
+
+    @Override
+    public Product addProduct(Product product) {
+        FakeStoreProductDto dto = convertProductToProductDto(product);
+        Product responseProduct = restTemplate.postForObject("https://fakestoreapi.com/products", dto, Product.class);
+        return responseProduct;
+    }
+
 }

@@ -36,9 +36,11 @@ public class ProductController {
     }
 
     @PostMapping()
-    public void addProduct(@RequestBody() Product product) {
+    public Product addProduct(@RequestBody() Product product) {
         // As this is adding a product, according to me we don't have to return anything
         // but Naman is return a product here
+
+        return productService.addProduct(product);
     }
 
     @PatchMapping("/{id}")
