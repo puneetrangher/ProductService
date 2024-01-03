@@ -27,11 +27,12 @@ public class ProductController {
 
     @GetMapping()
     public List<Product> getAllProducts() {
-        return new ArrayList<>();
+        return productService.getAllProducts();
     }
 
     @GetMapping("/{id}")
     public Product getSingleProduct(@PathVariable("id") Long id) {
+        System.out.println("This is controller service");
         return productService.getSingleProduct(id);
     }
 
@@ -43,16 +44,17 @@ public class ProductController {
         return productService.addProduct(product);
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/update/{id}")
     public void updateProduct(@PathVariable("id") Long id, @RequestBody Product product) {
         // As this is updating a product, according to me, we don't have to return anything
         // but Naman is return a product here
     }
 
-    @PutMapping("/{id}")
-    public void replaceProduct(@PathVariable("id") Long id, @RequestBody Product product) {
+    @PutMapping("/replace/{id}")
+    public Product replaceProduct(@PathVariable("id") Long id, @RequestBody Product product) {
         // As this is updating a product, according to me, we don't have to return anything
         // but Naman is return a product here
+        return productService.replaceProduct(id, product);
     }
 
     @DeleteMapping("/{id}")
