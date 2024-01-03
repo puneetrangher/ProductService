@@ -17,7 +17,7 @@ public class ProductController {
 
     private ProductService productService;
 
-    // We will not create an object of the product service directly but
+    // We will not create an object of the product service directly but,
     // instead we will create a constructor and pass the product service
     // Object in it and use @Autowired annotation for this
     @Autowired
@@ -37,7 +37,7 @@ public class ProductController {
 
     @PostMapping()
     public Product addProduct(@RequestBody() Product product) {
-        // As this is adding a product, according to me we don't have to return anything
+        // As this is adding a product, according to me, we don't have to return anything
         // but Naman is return a product here
 
         return productService.addProduct(product);
@@ -45,13 +45,13 @@ public class ProductController {
 
     @PatchMapping("/{id}")
     public void updateProduct(@PathVariable("id") Long id, @RequestBody Product product) {
-        // As this is updating a product, according to me we don't have to return anything
+        // As this is updating a product, according to me, we don't have to return anything
         // but Naman is return a product here
     }
 
     @PutMapping("/{id}")
     public void replaceProduct(@PathVariable("id") Long id, @RequestBody Product product) {
-        // As this is updating a product, according to me we don't have to return anything
+        // As this is updating a product, according to me, we don't have to return anything
         // but Naman is return a product here
     }
 

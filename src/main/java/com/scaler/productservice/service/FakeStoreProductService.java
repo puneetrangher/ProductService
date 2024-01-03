@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
+
 @Service
 public class FakeStoreProductService implements ProductService{
 
@@ -64,6 +66,21 @@ public class FakeStoreProductService implements ProductService{
         return convertProductDtoToProduct(productDto);
     }
 
+    // get all products
+    @Override
+    public List<Product> getAllProducts() {
+        /*
+        1. Create a list of product dto to store the result from the fakestore api
+        2. Create another list of Products
+        3. Iterate over product dto list to convert and store them in product list
+        4. return product list
+         */
+
+//        List<FakeStoreProductDto> dtoList = restTemplate.getForObject();
+
+        return null;
+    }
+
     // method to convert a given Product to product dto
     public FakeStoreProductDto convertProductToProductDto(Product product) {
         FakeStoreProductDto dto = new FakeStoreProductDto();
@@ -77,6 +94,8 @@ public class FakeStoreProductService implements ProductService{
         return dto;
     }
 
+
+    // Add a product
     @Override
     public Product addProduct(Product product) {
         FakeStoreProductDto dto = convertProductToProductDto(product);
