@@ -12,4 +12,5 @@ public class ApplicationConfiguration {
     public RestTemplate createRestTemplate() {
         return new RestTemplateBuilder().build();
     }
+
 }

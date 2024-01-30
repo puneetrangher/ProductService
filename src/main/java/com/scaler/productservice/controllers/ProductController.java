@@ -1,8 +1,10 @@
 package com.scaler.productservice.controllers;
 
+import com.scaler.productservice.exceptions.ProductDoesNotExistException;
 import com.scaler.productservice.models.Product;
 import com.scaler.productservice.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -21,7 +23,7 @@ public class ProductController {
     // instead we will create a constructor and pass the product service
     // Object in it and use @Autowired annotation for this
     @Autowired
-    public ProductController(ProductService productServiceObj) {
+    public ProductController(@Qualifier("selfProductService") ProductService productServiceObj) {
         this.productService = productServiceObj;
     }
 
@@ -31,7 +33,7 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public Product getSingleProduct(@PathVariable("id") Long id) {
+    public Product getSingleProduct(@PathVariable("id") Long id) throws ProductDoesNotExistException {
         System.out.println("This is controller service");
         return productService.getSingleProduct(id);
     }
@@ -45,9 +47,10 @@ public class ProductController {
     }
 
     @PatchMapping("/update/{id}")
-    public void updateProduct(@PathVariable("id") Long id, @RequestBody Product product) {
+    public Product updateProduct(@PathVariable("id") Long id, @RequestBody Product product) {
         // As this is updating a product, according to me, we don't have to return anything
         // but Naman is return a product here
+        return productService.updateProduct(id, product);
     }
 
     @PutMapping("/replace/{id}")
@@ -57,9 +60,12 @@ public class ProductController {
         return productService.replaceProduct(id, product);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteProduct(@PathVariable("id") Long id){
+    @DeleteMapping("/delete/{id}")
+    public Product deleteProduct(@PathVariable("id") Long id){
         // No need to return anything
+        return productService.deleteProduct(id);
+//        System.out.println(response);
+
     }
 
 }
